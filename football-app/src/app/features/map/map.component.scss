@@ -1,0 +1,131 @@
+:host {
+  display: block;
+  height: 100vh;
+  width: 100vw;
+}
+
+.map-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+  background: #0d1117;
+}
+
+// Header flottant
+.map-header {
+  position: absolute;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: rgba(15, 17, 26, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 200, 0, 0.2);
+  border-radius: 12px;
+  padding: 0.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffc800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+
+    i { font-size: 1.2rem; }
+  }
+
+  &__subtitle {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+}
+
+// Marker custom
+:global(.custom-marker) {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  i {
+    font-size: 1.6rem;
+    color: #ffc800;
+    filter: drop-shadow(0 0 6px rgba(255, 200, 0, 0.8));
+    transition: transform 0.2s ease;
+    z-index: 2;
+  }
+
+  &:hover i {
+    transform: scale(1.2);
+    color: #fff;
+  }
+}
+
+:global(.marker-pulse) {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 200, 0, 0.3);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%   { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  70%  { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+
+// Tooltip Leaflet
+:global(.custom-tooltip) {
+  background: rgba(15, 17, 26, 0.95) !important;
+  border: 1px solid rgba(255, 200, 0, 0.4) !important;
+  border-radius: 6px !important;
+  color: #ffc800 !important;
+  font-family: 'Rajdhani', sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  padding: 4px 10px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important;
+
+  &::before { display: none !important; }
+}
+
+:global(.stadium-pin) {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+
+  &:hover {
+    transform: scale(1.2) translateY(-4px);
+    filter: drop-shadow(0 8px 16px rgba(76,175,80,0.4));
+  }
+}
+
+:global(.stadium-pin__svg) {
+  width: 24px;
+  height: 32px;
+  display: block;
+}
