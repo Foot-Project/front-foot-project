@@ -1,0 +1,16 @@
+:root {
+  --surface-ground: #0f1117;
+  --surface-card: #1a1f2e;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  background: var(--surface-ground);
+  font-family: 'Rajdhani', sans-serif;
+}
