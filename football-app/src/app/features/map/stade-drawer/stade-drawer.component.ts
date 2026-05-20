@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges, inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core'; // ← retire OnChanges, SimpleChanges
 import { CommonModule } from '@angular/common';
 import { DrawerModule } from 'primeng/drawer';
 import { TabsModule } from 'primeng/tabs';
@@ -30,10 +30,26 @@ import { forkJoin } from 'rxjs';
   templateUrl: './stade-drawer.component.html',
   styleUrl: './stade-drawer.component.scss',
 })
-export class StadeDrawerComponent implements OnChanges {
-  @Input() stadeId!: number;
-  @Input() visible = false;
+export class StadeDrawerComponent { // ← retire implements OnChanges
+
+  @Input() stadeId = 0;
   @Output() closeDrawer = new EventEmitter<void>();
+
+  // ← setter à la place de @Input() visible
+  private _visible = false;
+
+  @Input()
+  set visible(value: boolean) {
+    console.log('👁️ visible setter:', value, '| stadeId:', this.stadeId);
+    this._visible = value;
+    if (value && this.stadeId) {
+      this.loadData();
+    }
+  }
+
+  get visible(): boolean {
+    return this._visible;
+  }
 
   private stadeService = inject(StadeService);
   private equipeService = inject(EquipeService);
@@ -53,12 +69,6 @@ export class StadeDrawerComponent implements OnChanges {
     return this.joueurs.filter(j => j.estRemplacant);
   }
 
-  ngOnChanges(): void {
-    if (this.visible && this.stadeId) {
-      this.loadData();
-    }
-  }
-
   private loadData(): void {
     this.loading = true;
     this.stade = null;
@@ -66,17 +76,12 @@ export class StadeDrawerComponent implements OnChanges {
     this.coach = null;
     this.joueurs = [];
 
-    // Charger le stade d'abord
     this.stadeService.getDetail(this.stadeId).subscribe({
       next: (stade) => {
         this.stade = stade;
-
-        // Puis charger l'équipe liée au stade
         this.equipeService.getByStade(this.stadeId).subscribe({
           next: (equipe) => {
             this.equipe = equipe;
-
-            // Puis joueurs + coach en parallèle
             forkJoin({
               joueurs: this.joueurService.getByEquipe(equipe.id),
               coach: this.equipeService.getCoach(equipe.id),

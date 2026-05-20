@@ -1,5 +1,4 @@
 <div class="map-wrapper">
-  <!-- Header overlay -->
   <div class="map-header">
     <div class="map-header__logo">
       <i class="pi pi-globe"></i>
@@ -8,14 +7,11 @@
     <div class="map-header__subtitle">Carte des stades</div>
   </div>
 
-  <!-- Carte Leaflet -->
   <div id="map"></div>
 
-  <!-- Drawer stade -->
- <app-stade-drawer
+  <app-stade-drawer
     [stadeId]="selectedStadeId ?? 0"
     [visible]="drawerVisible"
-    (visibleChange)="onDrawerClose()"
- />
-  
+    (closeDrawer)="onDrawerClose()"
+  />
 </div>

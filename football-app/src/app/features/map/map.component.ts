@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, NgZone, ChangeDetectorRef  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
@@ -15,6 +15,8 @@ import { StadeDrawerComponent } from './stade-drawer/stade-drawer.component';
 })
 export class MapComponent implements OnInit, OnDestroy {
   private stadeService = inject(StadeService);
+  private ngZone = inject(NgZone);
+  private cdr = inject(ChangeDetectorRef); 
   private map!: L.Map;
   private markerClusterGroup!: L.MarkerClusterGroup;
 
@@ -96,8 +98,12 @@ export class MapComponent implements OnInit, OnDestroy {
 }
 
   private onMarkerClick(stadeId: number): void {
+    console.log('🎯 Marker cliqué, stadeId:', stadeId);
     this.selectedStadeId = stadeId;
     this.drawerVisible = true;
+    this.cdr.detectChanges();  
+    console.log('📌 drawerVisible:', this.drawerVisible);
+    console.log('📌 selectedStadeId:', this.selectedStadeId);
   }
 
   onDrawerClose(): void {
