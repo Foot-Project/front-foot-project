@@ -5,6 +5,7 @@ export interface StadeDTO {
   capacite: number;
   latitude: number;
   longitude: number;
+  photo: string;
 }
 
 export interface StadeDetailDTO extends StadeDTO {

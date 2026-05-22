@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, inject } from '@angular/core'; // ← retire OnChanges, SimpleChanges
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core'; 
 import { CommonModule } from '@angular/common';
 import { DrawerModule } from 'primeng/drawer';
 import { TabsModule } from 'primeng/tabs';
@@ -30,12 +30,11 @@ import { forkJoin } from 'rxjs';
   templateUrl: './stade-drawer.component.html',
   styleUrl: './stade-drawer.component.scss',
 })
-export class StadeDrawerComponent { // ← retire implements OnChanges
+export class StadeDrawerComponent { 
 
   @Input() stadeId = 0;
   @Output() closeDrawer = new EventEmitter<void>();
 
-  // ← setter à la place de @Input() visible
   private _visible = false;
 
   @Input()
