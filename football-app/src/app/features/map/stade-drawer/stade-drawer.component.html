@@ -145,19 +145,21 @@
             <p-skeleton width="150px" height="20px" class="mt-2" />
             <p-skeleton width="100px" height="16px" class="mt-1" />
           </div>
-        } @else if (coach) {
-          <div class="coach-card">
-            <p-avatar
-              [label]="coach && coach.prenom && coach.nom ? coach.prenom[0] + coach.nom[0] : '?'"
-              size="xlarge"
-              shape="circle"
-              class="coach-avatar"
-            />
-            <div class="coach-card__info">
-              <h3>{{ coach.prenom }} {{ coach.nom }}</h3>
-              <p-tag [value]="coach.role" severity="warn" />
+        } @else if (coachs.length) {
+          @for (coach of coachs; track coach.id) {
+            <div class="coach-card">
+              <p-avatar
+                [label]="coach.prenom && coach.nom ? coach.prenom[0] + coach.nom[0] : '?'"
+                size="large"
+                shape="circle"
+                class="coach-avatar"
+              />
+              <div class="coach-card__info">
+                <h3>{{ coach.prenom }} {{ coach.nom }}</h3>
+                <p-tag [value]="coach.role" severity="warn" />
+              </div>
             </div>
-          </div>
+          }
         } @else {
           <div class="empty-state">
             <i class="pi pi-star"></i>

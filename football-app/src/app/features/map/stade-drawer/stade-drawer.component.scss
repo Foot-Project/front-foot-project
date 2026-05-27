@@ -292,7 +292,7 @@ h2, h3 { color: #0f1117!important; font-size: 20px!important;}
 
 .drawer-header__info span, .equipe-badge__initial  { color: #0f1117;}
 
-.detail-row span {color: #0f1117!important;}
+.detail-row span, .joueur-nom, .joueur-numero, .joueurs-section-label {color: #0f1117!important;}
 
 .stade-photo {
   width: calc(100% + 2rem);  // déborde sur les paddings du drawer

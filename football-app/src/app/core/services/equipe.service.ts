@@ -16,8 +16,8 @@ export class EquipeService {
     return this.http.get<EquipeDTO>(`${this.base}/equipes/stade/${stadeId}`);
   }
 
-  getCoach(equipeId: number): Observable<CoachDTO> {
-    return this.http.get<CoachDTO>(`${this.base}/coachs/equipe/${equipeId}`);
+  getCoachs(equipeId: number): Observable<CoachDTO[]> {
+    return this.http.get<CoachDTO[]>(`${this.base}/coachs/equipe/${equipeId}`);
   }
 }
 

@@ -46,7 +46,7 @@ export class StadeDrawerComponent implements OnChanges {
 
   stade: StadeDetailDTO | null = null;
   equipe: EquipeDTO | null = null;
-  coach: CoachDTO | null = null;
+  coachs: CoachDTO[] = [];
   joueurs: JoueurDTO[] = [];
   loading = false;
 
@@ -73,7 +73,7 @@ export class StadeDrawerComponent implements OnChanges {
     this.loading = true;
     this.stade = null;
     this.equipe = null;
-    this.coach = null;
+    this.coachs = [];
     this.joueurs = [];
 
     this.stadeService.getDetail(this.stadeId).subscribe({
@@ -84,13 +84,13 @@ export class StadeDrawerComponent implements OnChanges {
             this.equipe = equipe;
             forkJoin({
               joueurs: this.joueurService.getByEquipe(equipe.id),
-              coach: this.equipeService.getCoach(equipe.id).pipe(
-                catchError(() => of(null))
+              coachs: this.equipeService.getCoachs(equipe.id).pipe(
+                  catchError(() => of([]))
               ),
             }).subscribe({
-              next: ({ joueurs, coach }) => {
+              next: ({ joueurs, coachs }) => {
                 this.joueurs = joueurs;
-                this.coach = coach;
+                this.coachs = coachs;
                 this.loading = false;
                 this.cdr.markForCheck();
               },
