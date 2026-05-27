@@ -67,10 +67,14 @@
         } @else if (equipe) {
           <div class="equipe-card">
             <div class="equipe-card__top">
-              <div class="equipe-badge" [style.background]="equipe.couleurMaillot + '22'"
-                   [style.border-color]="equipe.couleurMaillot + '66'">
-                <span class="equipe-badge__initial">{{ equipe.nom[0] }}</span>
-              </div>
+                <div class="equipe-badge" [style.background]="equipe.couleurMaillot + '22'"
+                    [style.border-color]="equipe.couleurMaillot + '66'">
+                  @if (equipe.logo) {
+                    <img [src]="equipe.logo" [alt]="equipe.nom" class="equipe-badge__logo" />
+                  } @else {
+                    <span class="equipe-badge__initial">{{ equipe.nom[0] }}</span>
+                  }
+                </div>
               <div class="equipe-card__meta">
                 <h3>{{ equipe.nom }}</h3>
                 <p-tag [value]="'Fondé en ' + equipe.fondation" severity="secondary" />
@@ -147,7 +151,7 @@
               [label]="coach && coach.prenom && coach.nom ? coach.prenom[0] + coach.nom[0] : '?'"
               size="xlarge"
               shape="circle"
-              styleClass="coach-avatar"
+              class="coach-avatar"
             />
             <div class="coach-card__info">
               <h3>{{ coach.prenom }} {{ coach.nom }}</h3>

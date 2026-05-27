@@ -306,3 +306,10 @@ h2, h3 { color: #0f1117!important; font-size: 20px!important;}
     object-fit: cover;
   }
 }
+
+.equipe-badge__logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+}
