@@ -39,7 +39,7 @@
   </div>
 }
   <!-- Contenu avec onglets -->
-  <p-tabs [value]="0">
+  <p-tabs value="0">
 
     <!-- Onglet Équipe -->
     <p-tablist>
@@ -144,7 +144,7 @@
         } @else if (coach) {
           <div class="coach-card">
             <p-avatar
-              [label]="coach.prenom[0] + coach.nom[0]"
+              [label]="coach && coach.prenom && coach.nom ? coach.prenom[0] + coach.nom[0] : '?'"
               size="xlarge"
               shape="circle"
               styleClass="coach-avatar"
