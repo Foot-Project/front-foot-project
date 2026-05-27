@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef  } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef , NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
@@ -15,7 +15,8 @@ import { StadeDrawerComponent } from './stade-drawer/stade-drawer.component';
 })
 export class MapComponent implements OnInit, OnDestroy {
   private stadeService = inject(StadeService);
-  private cdr = inject(ChangeDetectorRef); 
+  private ngZone = inject(NgZone);
+  private cdr = inject(ChangeDetectorRef);
   private map!: L.Map;
   private markerClusterGroup!: L.MarkerClusterGroup;
 
@@ -90,19 +91,23 @@ export class MapComponent implements OnInit, OnDestroy {
         className: 'custom-tooltip',
         offset: [0, -50],
       })
-      .on('click', () => this.onMarkerClick(stade.id));
+      .on('click', () => {  
+        console.log('CLICK marker:', stade.id); 
+        this.onMarkerClick(stade.id)
+      });
 
     this.markerClusterGroup.addLayer(marker);
   });
 }
 
   private onMarkerClick(stadeId: number): void {
-    console.log('🎯 Marker cliqué, stadeId:', stadeId);
-    this.selectedStadeId = stadeId;
-    this.drawerVisible = true;
-    this.cdr.detectChanges();  
-    console.log('📌 drawerVisible:', this.drawerVisible);
-    console.log('📌 selectedStadeId:', this.selectedStadeId);
+    console.log('onMarkerClick appelé:', stadeId); 
+    this.ngZone.run(() => {
+      console.log('ngZone.run exécuté')
+      this.selectedStadeId = stadeId;
+      this.drawerVisible = true;
+      this.cdr.markForCheck();
+    });
   }
 
   onDrawerClose(): void {
