@@ -17,7 +17,7 @@ export class EquipeService {
   }
 
   getCoach(equipeId: number): Observable<CoachDTO> {
-    return this.http.get<CoachDTO>(`${this.base}/coaches/equipe/${equipeId}`);
+    return this.http.get<CoachDTO>(`${this.base}/coachs/equipe/${equipeId}`);
   }
 }
 
